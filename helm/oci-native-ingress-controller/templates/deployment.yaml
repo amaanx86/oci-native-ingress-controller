@@ -86,6 +86,13 @@ spec:
               protocol: TCP
             - name: metrics-server
               containerPort: 2223
+          readinessProbe:
+            tcpSocket:
+              port: webhook-server
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
