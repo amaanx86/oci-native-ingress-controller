@@ -103,9 +103,9 @@ podDisruptionBudget: {}
 
 # The TCP port the Webhook server binds to. (default 9443)
 # Health probes for operational reliability and Cloud Guard compliance
-# Readiness probe: Indicates when pod is ready to accept traffic (initialDelaySeconds: 30)
-# Liveness probe: Restarts pod if health check fails (initialDelaySeconds: 60)
-# Both use TCP socket probe on webhook-server port (9443)
+# Readiness probe: HTTP GET /healthz/ready on metrics-server port 2223 (initialDelaySeconds: 30)
+# Liveness probe: HTTP GET /healthz/live on metrics-server port 2223 (initialDelaySeconds: 60)
+# Probes use the metrics server and do not target the webhook port
 webhookBindPort: 9443
 
 # Supported auths - instance(default), user
