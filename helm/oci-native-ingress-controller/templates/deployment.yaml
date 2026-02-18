@@ -87,15 +87,19 @@ spec:
             - name: metrics-server
               containerPort: 2223
           readinessProbe:
-            tcpSocket:
-              port: webhook-server
+            httpGet:
+              path: /healthz/ready
+              port: metrics-server
+              scheme: HTTP
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           livenessProbe:
-            tcpSocket:
-              port: webhook-server
+            httpGet:
+              path: /healthz/live
+              port: metrics-server
+              scheme: HTTP
             initialDelaySeconds: 60
             periodSeconds: 20
             timeoutSeconds: 5
